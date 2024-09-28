@@ -15,12 +15,15 @@ RUN apt-get update && apt-get install -y \
     libxext6 \
     libgl1-mesa-glx \
     wget \
+    unzip \
     && rm -rf /var/lib/apt/lists/*
 
 # Set working directory
 WORKDIR /app
 
-COPY . /app
+COPY run.py /app/
+COPY modules /app/
+COPY requirements-gpu.txt /app/
 
 # Install Python dependencies
 RUN pip3 install --no-cache-dir -r requirements-gpu.txt
@@ -30,5 +33,9 @@ RUN mkdir -p models && \
     wget -O models/GFPGANv1.4.pth https://huggingface.co/hacksider/deep-live-cam/resolve/main/GFPGANv1.4.pth && \
     wget -O models/inswapper_128_fp16.onnx https://huggingface.co/hacksider/deep-live-cam/resolve/main/inswapper_128_fp16.onnx && \
     wget -O models/inswapper_128.onnx https://huggingface.co/hacksider/deep-live-cam/resolve/main/inswapper_128.onnx
+
+RUN mkdir /root/.insightful/models && \
+    wget -O buffalo_l.zip https://github.com/deepinsight/insightface/releases/download/v0.7/buffalo_l.zip && \
+    unzip buffalo_l.zip -d /root/.insightful/models
 
 CMD ["python3", "run.py", "--execution-provider", "cuda", "--"]
