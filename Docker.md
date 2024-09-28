@@ -3,9 +3,11 @@
 ## Fix
 
 ## fetch missing models from huggingspace
+
 https://huggingface.co/hacksider/deep-live-cam/tree/main
-wget https://huggingface.co/hacksider/deep-live-cam/resolve/main/inswapper_128_fp16.onnx
-wget https://huggingface.co/hacksider/deep-live-cam/resolve/main/inswapper_128.onnx?download=true
+
+    wget https://huggingface.co/hacksider/deep-live-cam/resolve/main/inswapper_128_fp16.onnx
+    wget https://huggingface.co/hacksider/deep-live-cam/resolve/main/inswapper_128.onnx?download=true
 
 ### CPU
 
