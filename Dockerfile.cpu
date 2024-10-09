@@ -21,7 +21,7 @@ RUN apt-get update && apt-get install -y \
 WORKDIR /app
 
 COPY run.py /app/
-COPY modules /app/
+COPY modules /app/modules
 COPY requirements-cpu.txt /app/
 
 # Install Python dependencies
@@ -33,8 +33,9 @@ RUN mkdir -p models && \
     wget -O models/inswapper_128_fp16.onnx https://huggingface.co/hacksider/deep-live-cam/resolve/main/inswapper_128_fp16.onnx && \
     wget -O models/inswapper_128.onnx https://huggingface.co/hacksider/deep-live-cam/resolve/main/inswapper_128.onnx
 
-RUN mkdir /root/.insightful/models && \
+# Insightface model
+RUN mkdir -p /root/.insightface/models/buffalo_l && \
     wget -O buffalo_l.zip https://github.com/deepinsight/insightface/releases/download/v0.7/buffalo_l.zip && \
-    unzip buffalo_l.zip -d /root/.insightful/models
+    unzip buffalo_l.zip -d /root/.insightface/models/buffalo_l
 
 CMD ["python3", "run.py", "--execution-provider", "cpu"]
