@@ -1,2 +1,1 @@
-Dockerfile.cpu
-Dockerfile.nvidia
+models/*
